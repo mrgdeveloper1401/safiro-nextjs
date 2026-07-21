@@ -43,7 +43,7 @@ export default function PassengerProfileClient({
         <aside className="lg:w-80 shrink-0">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden lg:sticky lg:top-8">
             {/* Profile header */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-center">
+            <div className="bg-linear-to-r from-blue-600 to-indigo-600 p-6 text-center">
               <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg mx-auto bg-white/20 flex items-center justify-center overflow-hidden">
                 {image ? (
                   <Image
@@ -169,7 +169,7 @@ function StatBox({
 }) {
   return (
     <div
-      className={`bg-gradient-to-r ${gradient} rounded-xl p-6 text-white`}
+      className={`bg-linear-to-r ${gradient} rounded-xl p-6 text-white`}
     >
       <div className="flex items-center justify-between mb-4">
         {icon}

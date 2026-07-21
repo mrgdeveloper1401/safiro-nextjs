@@ -20,7 +20,7 @@ const Login = () => {
   const onLogin = async (data: LoginInput) => {
     try {
       // روت هندلر خودش کوکی توکن رو httpOnly ست می‌کنه
-      await selfApi.post("/api/v1/auth/login", data);
+      await selfApi.post("api/v1/auth/login", data);
       router.push("/");
     } catch (error) {
       if (isAxiosError(error)) {
