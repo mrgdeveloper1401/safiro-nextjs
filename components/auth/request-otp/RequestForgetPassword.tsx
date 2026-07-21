@@ -1,6 +1,6 @@
 "use client";
 
-import { selfApi } from "@/lib/axios";
+import { slefHttpsApi } from "@/lib/axios";
 import { RequestOtpInput, RequestOtpSchema } from "@/lib/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAxiosError } from "axios";
@@ -22,7 +22,7 @@ const RequestForgetPassword = () => {
   const onSubmit = async (data: RequestOtpInput) => {
     try {
       // روت هندلر شماره رو توی کوکی httpOnly ست می‌کنه
-      await selfApi.post("/api/v1/auth/request-otp", data);
+      await slefHttpsApi.post("api/v1/auth/request-otp", data);
       // بعد از ارسال کد، به صفحه تایید کد هدایت می‌شود
       router.push("/verify-otp");
     } catch (error) {

@@ -5,7 +5,7 @@ import Header from "@/components/home/Hedaer";
 import HowItWorks from "@/components/home/HowItWorks";
 import RideForm from "@/components/home/RideForm";
 import Testimonials from "@/components/home/Testimonials";
-import { selfApi } from "@/lib/axios";
+import { slefHttpsApi } from "@/lib/axios";
 import { UserType } from "@/types/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -17,7 +17,7 @@ const getUser = async (): Promise<UserType | null> => {
   if (!token) return null;
 
   try {
-    const resData = await selfApi.get("api/v1/auth/user_type/", {
+    const resData = await slefHttpsApi.get("api/v1/auth/user_type/", {
       headers: { Authorization: `Bearer ${token}` },
     });
     return resData.data as UserType;

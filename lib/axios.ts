@@ -12,6 +12,6 @@ export const selfApi = axios.create({
 });
 
 export const slefHttpsApi = axios.create({
-  baseURL: "https://safiro.ir",
+  baseURL: "https://safiro.ir/",
   timeout: Number(process.env.selfApiTimeOut) || 10000,
 })

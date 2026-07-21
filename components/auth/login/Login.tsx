@@ -1,7 +1,7 @@
 // component/auth/login
 "use client";
 
-import { selfApi } from "@/lib/axios";
+import { slefHttpsApi } from "@/lib/axios";
 import { LoginInput, loginSchema } from "@/lib/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAxiosError } from "axios";
@@ -20,7 +20,7 @@ const Login = () => {
   const onLogin = async (data: LoginInput) => {
     try {
       // روت هندلر خودش کوکی توکن رو httpOnly ست می‌کنه
-      await selfApi.post("api/v1/auth/login", data);
+      await slefHttpsApi.post("api/v1/auth/login", data);
       router.push("/");
     } catch (error) {
       if (isAxiosError(error)) {
