@@ -2,7 +2,6 @@
 import { api } from "@/lib/axios";
 import { V1_PUBlIC_BASE_URL, isDev, response } from "@/utils/config";
 import { isAxiosError } from "axios";
-import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

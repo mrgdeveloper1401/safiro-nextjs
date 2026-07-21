@@ -6,16 +6,14 @@ import {
   Star,
   Car,
   Wallet,
-  Phone,
   LayoutDashboard,
   UserCog,
   Route,
   Zap,
   LogOut,
-  ShieldCheck,
 } from "lucide-react";
 import Image from "next/image";
-import type { PassengerProfile } from "./page";
+import { PassengerProfile } from "@/app/(auth)/passenger/page";
 
 type SectionKey = "dashboard" | "personal-info" | "trips";
 
