@@ -5,25 +5,27 @@ import Header from "@/components/home/Hedaer";
 import HowItWorks from "@/components/home/HowItWorks";
 import RideForm from "@/components/home/RideForm";
 import Testimonials from "@/components/home/Testimonials";
-import { slefHttpsApi } from "@/lib/axios";
 import { UserType } from "@/types/auth";
+import { DOMAIN_URL, isDev } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
 
 const getUser = async (): Promise<UserType | null> => {
+  // get token
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-  if (!token) return null;
+  if (!token) return redirect("/login");
 
-  try {
-    const resData = await slefHttpsApi.get("api/v1/auth/user_type/", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return resData.data as UserType;
-  } catch {
-    return redirect("/login")
-  }
+  // request into backend for get user_type
+  const selfApi = "http://localhost:3000/api/v1/auth/user_type";
+  const slefHttpsApi = `${DOMAIN_URL}/api/v1/auth/user_type`;
+  const selfReqUrl = isDev ? selfApi : slefHttpsApi;
+
+  const resData = await fetch(selfReqUrl, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return await resData.json() as UserType;
 };
 
 export default async function Home() {

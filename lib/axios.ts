@@ -1,3 +1,4 @@
+// lib/axios.ts
 import { V1_PUBlIC_BASE_URL } from "@/utils/config";
 import axios from "axios";
 
@@ -14,4 +15,4 @@ export const selfApi = axios.create({
 export const slefHttpsApi = axios.create({
   baseURL: "https://safiro.ir/",
   timeout: Number(process.env.selfApiTimeOut) || 10000,
-})
+});

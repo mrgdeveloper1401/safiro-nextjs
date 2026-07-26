@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { slefHttpsApi } from "@/lib/axios";
+import { selfApi, slefHttpsApi } from "@/lib/axios";
 import PassengerProfileClient from "@/components/auth/passenger/PassengerProfileClient";
+import { isDev } from "@/utils/config";
 
 export interface PassengerProfile {
   id: number;
@@ -25,7 +26,8 @@ async function getPassengerProfile(
   token: string
 ): Promise<PassengerProfile | null> {
   try {
-    const res = await slefHttpsApi.get("api/v1/auth/passenger/", {
+    const selfReqUrl = isDev ? selfApi : slefHttpsApi;
+    const res = await selfReqUrl.get("api/v1/auth/passenger/", {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (res.status !== 200) return null;

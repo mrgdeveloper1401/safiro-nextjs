@@ -1,9 +1,10 @@
 // components/home/Header.tsx
 "use client";
 
+import { logout } from "@/app/actions/auth";
 import { UserType } from "@/types/auth";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 const quickLinks = ["درباره ما", "پشتیبانی", "قوانین", "تماس با ما"];
 const mobileLinks = [
@@ -28,12 +29,19 @@ interface HeaderProps {
 const Header = ({ user }: HeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
   const roleLabel = user?.is_driver
     ? "راننده"
     : user?.is_passenger
     ? "مسافر"
     : "کاربر";
   const dashboardHref = user?.is_driver ? "/driver" : "/passenger";
+
+  const handleLogout = () => {
+    startTransition(async () => await logout());
+  };
+
   return (
     <header className="relative overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-br from-blue-700 via-indigo-800 to-purple-900" />
@@ -182,12 +190,13 @@ const Header = ({ user }: HeaderProps) => {
                         >
                           سفرهای من
                         </Link>
-                        <Link
-                          href="/logout"
-                          className="block px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors border-t border-gray-100"
+                        <button
+                          onClick={handleLogout}
+                          disabled={isPending}
+                          className="block px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors border-t border-gray-100 w-full hover:cursor-pointer"
                         >
-                          خروج
-                        </Link>
+                          {isPending ? 'در حال خروج': "خروج از حساب"}
+                        </button>
                       </div>
                     )}
                   </div>

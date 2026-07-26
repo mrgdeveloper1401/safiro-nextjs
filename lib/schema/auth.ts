@@ -22,6 +22,11 @@ export const RequestOtpSchema = z.object({
   otp_type: z.enum(["otp", "forget_password"]),
 });
 
+export const tokenVerifySchema = z.object({
+  token: z.string().min(1, "توکن الزامی هست"),
+});
+
+export type tokenVerify = z.infer<typeof tokenVerifySchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type RequestOtpInput = z.infer<typeof RequestOtpSchema>;

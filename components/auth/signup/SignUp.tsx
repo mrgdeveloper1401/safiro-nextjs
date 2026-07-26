@@ -1,8 +1,9 @@
 // components/auth/signup/SignUp.tsx
 "use client";
 
-import { slefHttpsApi } from "@/lib/axios";
+import { selfApi, slefHttpsApi } from "@/lib/axios";
 import { RegisterInput, registerSchema } from "@/lib/schema/auth";
+import { isDev } from "@/utils/config";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAxiosError } from "axios";
 import Link from "next/link";
@@ -22,8 +23,9 @@ const Register = () => {
   const onRegister = async (data: RegisterInput) => {
     try {
       // روت هندلر خودش کوکی توکن رو httpOnly ست می‌کنه
-      await slefHttpsApi.post("api/v1/auth/register", data);
-      router.push("/");
+      const selfReqUrl = isDev ? selfApi : slefHttpsApi;
+      await selfReqUrl.post("api/v1/auth/register", data);
+      router.replace("/");
     } catch (error) {
       if (isAxiosError(error)) {
         const status = error.response?.status;
