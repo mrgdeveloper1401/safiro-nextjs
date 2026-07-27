@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
+    "@neshan-maps-platform/mapbox-gl": "^1.1.7",
     "axios": "^1.18.1",
     "lucide-react": "^1.25.0",
     "next": "15.5.20",

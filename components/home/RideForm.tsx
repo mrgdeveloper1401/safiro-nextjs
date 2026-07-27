@@ -37,12 +37,12 @@ const iconBg: Record<string, string> = {
   orange: "bg-orange-100 text-orange-600",
 };
 
-const priceColor: Record<string, string> = {
-  green: "text-green-600",
-  blue: "text-blue-600",
-  purple: "text-purple-600",
-  orange: "text-orange-600",
-};
+// const priceColor: Record<string, string> = {
+//   green: "text-green-600",
+//   blue: "text-blue-600",
+//   purple: "text-purple-600",
+//   orange: "text-orange-600",
+// };
 
 const RideForm = () => {
   const [tripTypes, setTripTypes] = useState<TripType[]>([]);

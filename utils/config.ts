@@ -11,3 +11,5 @@ export const isDev = process.env.NODE_ENV === 'development';
 export const DOMAIN_URL = process.env.DOMAIN_URL || 'https://safiro.ir'
 
 export const response = NextResponse;
+
+export const mapKey = process.env.MAP_KEY || 'web.e86a5f1c2bc549629d6a31a402e7c950'

@@ -5,6 +5,7 @@ import Header from "@/components/home/Hedaer";
 import HowItWorks from "@/components/home/HowItWorks";
 import RideForm from "@/components/home/RideForm";
 import Testimonials from "@/components/home/Testimonials";
+import MapNeshan from "@/components/home/mapNeshan";
 import { UserType } from "@/types/auth";
 import { DOMAIN_URL, isDev } from "@/utils/config";
 import { cookies } from "next/headers";
@@ -34,6 +35,7 @@ export default async function Home() {
   return (
     <Fragment>
       <Header user={user} />
+      <MapNeshan/>
       <RideForm />
       <Features />
       <HowItWorks />
