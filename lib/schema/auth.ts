@@ -26,6 +26,24 @@ export const tokenVerifySchema = z.object({
   token: z.string().min(1, "توکن الزامی هست"),
 });
 
+export const verifyForgetPasswordSchema = z
+  .object({
+    code: z
+      .string()
+      .min(1, "کد اعتبار سنجی الزامی هست")
+      .max(6, "کد اعتبارسنجی ۶ رقمی میباشد"),
+    password: z.string().min(1, "پسورد جدید الزامی هست"),
+    confirm_password: z.string().min(1, "تایید پسورد  جدید الزامی هست"),
+    phone: z.string().optional()
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    error: "عدم تطابق رمز عبور",
+    path: ["confirm_password"],
+  });
+
+export type verifyForgetPasswordInput = z.infer<
+  typeof verifyForgetPasswordSchema
+>;
 export type tokenVerify = z.infer<typeof tokenVerifySchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;

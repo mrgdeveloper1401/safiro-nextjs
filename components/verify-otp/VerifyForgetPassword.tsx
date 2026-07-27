@@ -1,17 +1,14 @@
-// components/auth/request-otp/RequestForgetPassword
-"use client";
-
 import { selfApi, slefHttpsApi } from "@/lib/axios";
 import { RequestOtpInput, RequestOtpSchema } from "@/lib/schema/auth";
 import { isDev } from "@/utils/config";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAxiosError } from "axios";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link } from "lucide-react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-const RequestForgetPassword = () => {
-  const router = useRouter();
+export const RequestForgetPassword = () => {
+      const router = useRouter();
   const forgetForm = useForm<RequestOtpInput>({
     resolver: zodResolver(RequestOtpSchema),
     defaultValues: { otp_type: "forget_password" },
@@ -27,7 +24,7 @@ const RequestForgetPassword = () => {
       const selfReqUrl = isDev ? selfApi : slefHttpsApi;
       await selfReqUrl.post("api/v1/auth/request-otp", data);
       // بعد از ارسال کد، به صفحه تایید کد هدایت می‌شود
-      router.push("/verify-forget-password");
+      router.push("/verify-otp");
     } catch (error) {
       if (isAxiosError(error)) {
         const status = error.response?.status;
@@ -168,6 +165,5 @@ const RequestForgetPassword = () => {
       </div>
     </div>
   );
-};
 
-export default RequestForgetPassword;
+};

@@ -1,17 +1,14 @@
-// api/v1/auth/login
+// api/v1/auth/verify-forget-password
 import { api } from "@/lib/axios";
-import { loginSchema } from "@/lib/schema/auth";
-import { V1_PUBlIC_BASE_URL, isDev, response } from "@/utils/config";
+import { verifyForgetPasswordSchema } from "@/lib/schema/auth";
+import { isDev, response } from "@/utils/config";
 import { isAxiosError } from "axios";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    // request url
-    const reqUrl = isDev
-      ? "http://localhost:8000/v1/api/auth/login_phone_password/"
-      : `${V1_PUBlIC_BASE_URL}/api/auth/login_phone_password/`;
+    const reqUrl = "api/auth/verify_forget_password/";
 
     //   check request body
     const body = await request.json();
@@ -28,8 +25,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // request backend
-    const validateData = loginSchema.safeParse(body);
+    // validate data
+    const cookieStore = await cookies();
+    const phone = cookieStore.get("phone")?.value;
+    if (!phone) {
+      return response.json(
+        {
+          detail: "شماره موبایل یافت نشد",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+    const validateData = verifyForgetPasswordSchema.safeParse(body);
     if (!validateData.success) {
       return response.json(
         validateData.error.issues.map((err) => ({
@@ -38,10 +47,15 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const resData = await api.post(reqUrl, validateData.data);
+
+    const payload = {
+      ...validateData.data,phone
+    }
+
+    // request backend
+    const resData = await api.post(reqUrl, payload);
 
     // save token in cookie
-    const cookieStore = await cookies();
     cookieStore.set("token", resData.data?.result?.token?.access_token, {
       httpOnly: true,
       secure: isDev ? false : true,
@@ -58,10 +72,10 @@ export async function POST(request: NextRequest) {
     if (isAxiosError(error)) {
       return response.json(
         {
-          detail: error.response?.data?.error,
+          detail: error.response?.data,
         },
         {
-          status: error.status,
+          status: error.response?.status,
         }
       );
     }

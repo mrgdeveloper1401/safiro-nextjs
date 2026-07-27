@@ -1,3 +1,4 @@
+// api/v1/auth/request-otp/route.ts
 import { api } from "@/lib/axios";
 import { RequestOtpSchema } from "@/lib/schema/auth";
 import { V1_PUBlIC_BASE_URL, isDev, response } from "@/utils/config";
@@ -38,28 +39,33 @@ export async function POST(request: NextRequest) {
       );
     }
     const resData = await api.post(reqUrl, validateData.data);
-    if (resData.status !== 200) {
+
+    const phone = resData.data?.result?.mobile;
+    if (!phone) {
       return response.json(
         {
-          message: resData.data?.message || "خطا",
-          detail: resData.data?.detail || "حطا",
+          success: false,
+          detail: "شماره موبایل در پاسخ بک‌اند وجود ندارد",
         },
         {
-          status: resData.status,
+          status: 502,
         }
       );
     }
 
     // save information in cookie
     const cookieStore = await cookies();
-    cookieStore.set("phone", resData.data?.result?.mobile, {
+
+    cookieStore.set("phone", String(phone), {
       httpOnly: true,
-      secure: isDev ? false : true,
+      secure: !isDev,
       sameSite: "lax",
-      maxAge: resData.data?.result.token?.exp_otp_time,
+      maxAge: 120,
+      path: "/",
     });
 
     return response.json({
+      success: true,
       is_passenger: resData.data?.result?.is_passenger,
       is_driver: resData.data?.result?.is_driver,
       is_verify_phone: resData.data?.result?.is_verify_phone,
@@ -68,7 +74,7 @@ export async function POST(request: NextRequest) {
     if (isAxiosError(error)) {
       return response.json(
         {
-          detail: error.response?.data?.error,
+          detail: error.response?.data?.detail,
         },
         {
           status: error.status,

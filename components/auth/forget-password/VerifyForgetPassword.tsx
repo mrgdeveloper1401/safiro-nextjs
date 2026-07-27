@@ -1,8 +1,11 @@
-// components/auth/request-otp/RequestForgetPassword
+// components/auth/forget-password/VerifyForgetPassword.tsx
 "use client";
 
 import { selfApi, slefHttpsApi } from "@/lib/axios";
-import { RequestOtpInput, RequestOtpSchema } from "@/lib/schema/auth";
+import {
+  verifyForgetPasswordInput,
+  verifyForgetPasswordSchema,
+} from "@/lib/schema/auth";
 import { isDev } from "@/utils/config";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAxiosError } from "axios";
@@ -10,30 +13,29 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-const RequestForgetPassword = () => {
+export const VerifyForgetPassword = () => {
   const router = useRouter();
-  const forgetForm = useForm<RequestOtpInput>({
-    resolver: zodResolver(RequestOtpSchema),
-    defaultValues: { otp_type: "forget_password" },
+  const forgetForm = useForm<verifyForgetPasswordInput>({
+    resolver: zodResolver(verifyForgetPasswordSchema),
   });
   const {
     register,
     formState: { errors, isSubmitting },
   } = forgetForm;
 
-  const onSubmit = async (data: RequestOtpInput) => {
+  const onSubmit = async (data: verifyForgetPasswordInput) => {
     try {
       // روت هندلر شماره رو توی کوکی httpOnly ست می‌کنه
       const selfReqUrl = isDev ? selfApi : slefHttpsApi;
-      await selfReqUrl.post("api/v1/auth/request-otp", data);
-      // بعد از ارسال کد، به صفحه تایید کد هدایت می‌شود
-      router.push("/verify-forget-password");
+      await selfReqUrl.post("api/v1/auth/verify-forget-password", data);
+      // بعد از ارسال کد، به صفحه تایید اصلی می‌شود
+      router.push("/");
     } catch (error) {
       if (isAxiosError(error)) {
         const status = error.response?.status;
         if (status === 404) {
           forgetForm.setError("root", {
-            message: "کاربری با این شماره یافت نشد",
+            message: "کد اشتباه هست یا منقضی شده هست",
           });
         } else if (status === 429) {
           forgetForm.setError("root", {
@@ -94,19 +96,20 @@ const RequestForgetPassword = () => {
           </div>
           <h2 className="text-2xl font-bold text-gray-800">بازیابی رمز عبور</h2>
           <p className="text-gray-600 mt-1 text-sm">
-            شماره موبایل خود را وارد کنید تا کد تایید ارسال شود
+            کد پیامک شده به همراه رمز عبور خود را وارد کنید
           </p>
         </div>
 
         <div className="p-6">
           <form
-            onSubmit={forgetForm.handleSubmit(onSubmit)}
+            onSubmit={forgetForm.handleSubmit(onSubmit, (errors) => console.log('zod errors', errors)
+            )}
             className="space-y-4"
           >
-            {/* شماره موبایل */}
+            {/* کد */}
             <div>
               <label className="block text-gray-700 text-sm font-semibold mb-2">
-                شماره موبایل
+                کد تایید
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -126,20 +129,89 @@ const RequestForgetPassword = () => {
                 </div>
                 <input
                   type="text"
-                  {...register("phone")}
+                  {...register("code")}
                   className="w-full pr-10 pl-3 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-black"
-                  placeholder="09xxxxxxxxx"
+                  placeholder="123456"
                 />
               </div>
-              {errors.phone && (
+              {errors.code && (
                 <p className="text-red-500 text-xs mt-1">
-                  {errors.phone.message}
+                  {errors.code.message}
                 </p>
               )}
             </div>
 
-            {/* otp_type مخفی و ثابت */}
-            <input type="hidden" {...register("otp_type")} />
+            {/* رمز عبور */}
+            <div>
+              <label className="block text-gray-700 text-sm font-semibold mb-2">
+                رمز عبور
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <svg
+                    className="h-5 w-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="password"
+                  autoComplete="new-password"
+                  {...register("password")}
+                  className="w-full pr-10 pl-3 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-black"
+                  placeholder="رمز عبور خود را وارد کنید"
+                />
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* تایید رمز عبور */}
+            <div>
+              <label className="block text-gray-700 text-sm font-semibold mb-2">
+                تایید رمز عبور
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <svg
+                    className="h-5 w-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="password"
+                  autoComplete="new-password"
+                  {...register("confirm_password")}
+                  className="w-full pr-10 pl-3 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-black"
+                  placeholder="رمز عبور خود رو مجددا وارد کنید"
+                />
+              </div>
+              {errors.confirm_password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.confirm_password.message}
+                </p>
+              )}
+            </div>
 
             {errors.root && (
               <p className="text-red-500 text-sm text-center">
@@ -150,9 +222,10 @@ const RequestForgetPassword = () => {
             <button
               type="submit"
               disabled={isSubmitting}
+              onClick={() => console.log("Submit button clicked")}
               className="w-full bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 rounded-lg shadow-lg transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "در حال ارسال کد..." : "ارسال کد تایید"}
+              {isSubmitting ? "در حال ارسال ..." : "تغییر رمز عبور"}
             </button>
           </form>
 
@@ -160,8 +233,8 @@ const RequestForgetPassword = () => {
             <Link href={"/register"} className="text-blue-500">
               ایجاد حساب
             </Link>
-            <Link href={"/login"} className="text-blue-500">
-              بازگشت به ورود
+            <Link href={"/request-forget-password"} className="text-blue-500">
+              ارسال دوباره رمز عبور
             </Link>
           </div>
         </div>
@@ -169,5 +242,3 @@ const RequestForgetPassword = () => {
     </div>
   );
 };
-
-export default RequestForgetPassword;

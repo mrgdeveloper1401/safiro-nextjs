@@ -12,8 +12,9 @@ RUN npm run build
 
 FROM node:24-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production
-ENV NEXT_PUBLIC_API_URL=
+# ENV NODE_ENV=
+# ENV NEXT_PUBLIC_API_URL=
+# ENV DOMAIN_URL=
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
 COPY --from=builder /app/.next/standalone ./
