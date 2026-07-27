@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     // save token in cookie
     const cookieStore = await cookies();
-    cookieStore.set("token", resData.data?.result?.token?.access_token, {
+    cookieStore.set("token", String(resData.data?.result?.token?.access_token), {
       httpOnly: true,
       secure: isDev ? false : true,
       sameSite: "lax",
