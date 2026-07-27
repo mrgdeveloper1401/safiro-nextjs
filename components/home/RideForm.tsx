@@ -20,15 +20,15 @@ const serviceColorMap: Record<string, string> = {
 };
 
 // مپ قیمت‌ها (می‌تونید از API هم بیارید)
-const servicePriceMap: Record<string, string> = {
-  'اتوبوس': 'از 15,000 تومان',
-  'مینی بوس': 'از 25,000 تومان',
-  'ون': 'از 35,000 تومان',
-  'میدل باس': 'از 45,000 تومان',
-  'سواری': 'از 20,000 تومان',
-  'وانت': 'از 30,000 تومان',
-  'VIP': 'از 50,000 تومان',
-};
+// const servicePriceMap: Record<string, string> = {
+//   'اتوبوس': 'از 15,000 تومان',
+//   'مینی بوس': 'از 25,000 تومان',
+//   'ون': 'از 35,000 تومان',
+//   'میدل باس': 'از 45,000 تومان',
+//   'سواری': 'از 20,000 تومان',
+//   'وانت': 'از 30,000 تومان',
+//   'VIP': 'از 50,000 تومان',
+// };
 
 const iconBg: Record<string, string> = {
   green: "bg-green-100 text-green-600",
@@ -179,7 +179,7 @@ const RideForm = () => {
                 {tripTypes.map((trip, index) => {
                   // دریافت رنگ مناسب برای این سرویس
                   const color = serviceColorMap[trip.trip_name] || 'blue';
-                  const price = servicePriceMap[trip.trip_name] || 'از 20,000 تومان';
+                  // const price = servicePriceMap[trip.trip_name] || 'از 20,000 تومان';
                   
                   return (
                     <label key={trip.id} className="cursor-pointer">
@@ -219,9 +219,9 @@ const RideForm = () => {
                         <div className="text-xs text-gray-500">
                           {trip.trip_name}
                         </div>
-                        <div className={`text-sm font-bold mt-1 ${priceColor[color]}`}>
+                        {/* <div className={`text-sm font-bold mt-1 ${priceColor[color]}`}>
                           {price}
-                        </div>
+                        </div> */}
                       </div>
                     </label>
                   );
