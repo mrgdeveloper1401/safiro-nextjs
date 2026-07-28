@@ -230,8 +230,8 @@ const RideForm = () => {
             </div>
 
             {/* گزینه‌های اضافی */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
+              {/* <div>
                 <label className="block text-gray-700 font-semibold mb-2">
                   تعداد مسافران
                 </label>
@@ -245,7 +245,7 @@ const RideForm = () => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
                   تاریخ سفر
@@ -253,7 +253,7 @@ const RideForm = () => {
                 <input
                   type="date"
                   name="date"
-                  className="w-full border-2 rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                  className="w-full border-2 rounded-xl px-4 py-3 focus:outline-none border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
                 />
               </div>
               <div>
@@ -263,7 +263,7 @@ const RideForm = () => {
                 <input
                   type="time"
                   name="time"
-                  className="w-full border-2 rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                  className="w-full border-2 rounded-xl px-4 py-3 focus:outline-none border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
                 />
               </div>
             </div>
@@ -277,13 +277,13 @@ const RideForm = () => {
                 name="description"
                 rows={3}
                 placeholder="لطفا در صورت نیاز توضیحات خود را وارد کنید..."
-                className="w-full border-2 rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                className="w-full border-2 rounded-xl px-4 py-3 focus:outline-none border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-linear-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105 shadow-lg"
+              className="w-full bg-linear-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-102 shadow-lg"
             >
               ثبت سفارش سفر
             </button>
