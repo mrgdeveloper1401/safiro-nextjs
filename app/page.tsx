@@ -5,12 +5,12 @@ import Header from "@/components/home/Hedaer";
 import HowItWorks from "@/components/home/HowItWorks";
 import RideForm from "@/components/home/RideForm";
 import Testimonials from "@/components/home/Testimonials";
-import MapNeshan from "@/components/home/mapNeshan";
 import { UserType } from "@/types/auth";
 import { DOMAIN_URL, isDev } from "@/utils/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
+import MapWrapper from "@/components/home/MapWrapper";
 
 const getUser = async (): Promise<UserType | null> => {
   // get token
@@ -29,13 +29,14 @@ const getUser = async (): Promise<UserType | null> => {
   return await resData.json() as UserType;
 };
 
+
 export default async function Home() {
   const user = await getUser();
 
   return (
     <Fragment>
       <Header user={user} />
-      <MapNeshan/>
+      <MapWrapper/>
       <RideForm />
       <Features />
       <HowItWorks />

@@ -138,12 +138,12 @@ const RideForm = () => {
   }
 
   return (
-    <div className="relative -mt-32 z-20">
+    <div className="relative z-20">
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
           <form onSubmit={onSubmit} className="space-y-6">
             {/* مبدأ و مقصد */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
                   مبدأ
@@ -168,7 +168,7 @@ const RideForm = () => {
                   className="w-full border-2 border-purple-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-100 transition-all"
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* نوع سرویس - داینامیک از API */}
             <div>
