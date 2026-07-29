@@ -1,4 +1,5 @@
 // utils/config.ts
+
 import { NextResponse } from "next/server";
 
 export const V1_PUBlIC_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/v1/'
