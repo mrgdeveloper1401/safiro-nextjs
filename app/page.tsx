@@ -12,10 +12,14 @@ import { redirect } from "next/navigation";
 import { Fragment } from "react";
 import MapWrapper from "@/components/home/MapWrapper";
 
-const getUser = async (): Promise<UserType | null> => {
-  // get token
+const getToken = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
+  return token;
+};
+
+const getUser = async (): Promise<UserType | null> => {
+  const token = await getToken();
   if (!token) return redirect("/login");
 
   // request into backend for get user_type
@@ -26,18 +30,27 @@ const getUser = async (): Promise<UserType | null> => {
   const resData = await fetch(selfReqUrl, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return await resData.json() as UserType;
+  return (await resData.json()) as UserType;
 };
-
 
 export default async function Home() {
   const user = await getUser();
+  const token = await getToken();
 
   return (
     <Fragment>
       <Header user={user} />
-      <MapWrapper/>
-      <RideForm />
+
+      <section className="relative z-20 -mt-8 pb-8 sm:-mt-16">
+        <div className="container mx-auto space-y-6 px-4">
+          {/* نقشه */}
+          {token && <MapWrapper token={token} />}
+
+          {/* فرم ثبت سفر */}
+          <RideForm />
+        </div>
+      </section>
+
       <Features />
       <HowItWorks />
       <Testimonials />

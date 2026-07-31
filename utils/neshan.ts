@@ -11,7 +11,7 @@ export type ReverseResult = {
 export async function reverseGeocode(
   lat: number,
   lng: number,
-  token: string
+  token?: string
 ): Promise<ReverseResult | null> {
   try {
     const res = await fetch("/api/v1/neshan/reverse", {

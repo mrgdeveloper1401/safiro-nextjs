@@ -13,4 +13,4 @@ export const DOMAIN_URL = process.env.DOMAIN_URL || 'https://safiro.ir'
 
 export const response = NextResponse;
 
-export const mapKey = process.env.MAP_KEY || 'web.e86a5f1c2bc549629d6a31a402e7c950'
+export const mapKey = process.env.MAP_KEY || 'web.0ac6f7f9df6c4789922dd64b213f6372'

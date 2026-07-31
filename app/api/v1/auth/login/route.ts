@@ -42,13 +42,16 @@ export async function POST(request: NextRequest) {
 
     // save token in cookie
     const cookieStore = await cookies();
-    cookieStore.set("token", String(resData.data?.result?.token?.access_token), {
-      httpOnly: true,
-      secure: isDev ? false : true,
-      sameSite: "lax",
-      maxAge: resData.data?.result.token?.access_token_life_time,
-    });
-
+    cookieStore.set(
+      "token",
+      String(resData.data?.result?.token?.access_token),
+      {
+        httpOnly: true,
+        secure: isDev ? false : true,
+        sameSite: "lax",
+        maxAge: resData.data?.result.token?.access_token_life_time,
+      }
+    );
     return response.json({
       is_verify_phone: resData.data?.result?.is_verify_phone,
       is_staff: resData.data?.result?.is_staff,

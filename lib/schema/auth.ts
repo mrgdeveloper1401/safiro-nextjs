@@ -34,13 +34,21 @@ export const verifyForgetPasswordSchema = z
       .max(6, "کد اعتبارسنجی ۶ رقمی میباشد"),
     password: z.string().min(1, "پسورد جدید الزامی هست"),
     confirm_password: z.string().min(1, "تایید پسورد  جدید الزامی هست"),
-    phone: z.string().optional()
+    phone: z.string().optional(),
   })
   .refine((data) => data.password === data.confirm_password, {
     error: "عدم تطابق رمز عبور",
     path: ["confirm_password"],
   });
 
+export const VerifyOtpPhoneSchema = z.object({
+  code: z
+    .string()
+    .min(1, "کد تایید الزامی هست")
+    .max(6, "کد تایید حداکثر ۶ رقمی هست"),
+});
+
+export type VerifyOtpPhoneInput = z.infer<typeof VerifyOtpPhoneSchema>;
 export type verifyForgetPasswordInput = z.infer<
   typeof verifyForgetPasswordSchema
 >;
