@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
     // request backend and
     const resData = await api.post(
-      "/api/trip/reverse_geocode/",
+      "/api/trip/reverse_geocode",
       validateData.data,
       {
         headers: {
