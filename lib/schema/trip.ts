@@ -21,5 +21,10 @@ export const ceateTripSchema = z.object({
   trip_type: z.number(),
 });
 
+export const cancelTripSchema = z.object({
+  status: z.string().default("cancelled"),
+})
+
+export type cancelTripInput = z.infer<typeof cancelTripSchema>;
 export type ceateTripInput = z.infer<typeof ceateTripSchema>;
 export type reverseGeocodeInput = z.infer<typeof reverseGeocodeSchema>;

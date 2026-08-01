@@ -2,10 +2,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { Point } from "@/components/home/TripBooking";
 
-type Token = {
-  token?: string
-}
+type Props = {
+  token?: string;
+  onOriginChange?: (point: Point | null) => void;
+  onDestinationChange?: (point: Point | null) => void;
+};
 
 const MapNeshan = dynamic(() => import("./mapNeshan"), {
   ssr: false,
@@ -19,6 +22,16 @@ const MapNeshan = dynamic(() => import("./mapNeshan"), {
   ),
 });
 
-export default function MapWrapper({ token }: Token) {
-  return <MapNeshan token={token} />;
+export default function MapWrapper({
+  token,
+  onOriginChange,
+  onDestinationChange,
+}: Props) {
+  return (
+    <MapNeshan
+      token={token}
+      onOriginChange={onOriginChange}
+      onDestinationChange={onDestinationChange}
+    />
+  );
 }
