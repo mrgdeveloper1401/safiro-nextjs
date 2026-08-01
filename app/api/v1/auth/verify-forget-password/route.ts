@@ -8,7 +8,7 @@ import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const reqUrl = "api/auth/verify_forget_password/";
+    const reqUrl = "/api/auth/verify_forget_password/";
 
     //   check request body
     const body = await request.json();

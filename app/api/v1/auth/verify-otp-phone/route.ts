@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     };
 
     // request backend
-    const reqUrl = "api/auth/verify_otp/";
+    const reqUrl = "/api/auth/verify_otp/";
     const resData = await api.post(reqUrl, payload);
 
     // save token in cookie

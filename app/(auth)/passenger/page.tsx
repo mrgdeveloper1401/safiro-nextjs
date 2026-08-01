@@ -27,7 +27,7 @@ async function getPassengerProfile(
 ): Promise<PassengerProfile | null> {
   try {
     const selfReqUrl = isDev ? selfApi : slefHttpsApi;
-    const res = await selfReqUrl.get("api/v1/auth/passenger/", {
+    const res = await selfReqUrl.get("/api/v1/auth/passenger/", {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (res.status !== 200) return null;

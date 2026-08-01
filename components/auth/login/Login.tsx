@@ -22,7 +22,7 @@ const Login = () => {
     try {
       // روت هندلر خودش کوکی توکن رو httpOnly ست می‌کنه
       const selfReqUrl = isDev ? selfApi : slefHttpsApi;
-      await selfReqUrl.post("api/v1/auth/login", data);
+      await selfReqUrl.post("/api/v1/auth/login", data);
       router.push("/");
     } catch (error) {
       if (isAxiosError(error)) {

@@ -2,7 +2,7 @@
 
 import { NextResponse } from "next/server";
 
-export const V1_PUBlIC_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/v1/'
+export const V1_PUBlIC_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/v1'
 
 export const isDev = process.env.NODE_ENV === 'development';
 

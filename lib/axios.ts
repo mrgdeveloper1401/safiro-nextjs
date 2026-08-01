@@ -8,11 +8,11 @@ export const api = axios.create({
 });
 
 export const selfApi = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "http://localhost:3000",
   timeout: Number(process.env.selfApiTimeOut) || 15000,
 });
 
 export const slefHttpsApi = axios.create({
-  baseURL: "https://safiro.ir/",
+  baseURL: "https://safiro.ir",
   timeout: Number(process.env.selfApiTimeOut) || 15000,
 });

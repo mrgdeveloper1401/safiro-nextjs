@@ -25,7 +25,7 @@ const RequestForgetPassword = () => {
     try {
       // روت هندلر شماره رو توی کوکی httpOnly ست می‌کنه
       const selfReqUrl = isDev ? selfApi : slefHttpsApi;
-      await selfReqUrl.post("api/v1/auth/request-otp", data);
+      await selfReqUrl.post("/api/v1/auth/request-otp", data);
       // بعد از ارسال کد، به صفحه تایید کد هدایت می‌شود
       router.push("/verify-forget-password");
     } catch (error) {

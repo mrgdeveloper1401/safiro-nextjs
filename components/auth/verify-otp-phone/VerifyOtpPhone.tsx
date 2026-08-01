@@ -27,7 +27,7 @@ export const VerifyOtpPhone = () => {
     try {
       // روت هندلر شماره رو توی کوکی httpOnly ست می‌کنه
       const selfReqUrl = isDev ? selfApi : slefHttpsApi;
-      await selfReqUrl.post("api/v1/auth/verify-otp-phone", data);
+      await selfReqUrl.post("/api/v1/auth/verify-otp-phone", data);
       // بعد از ارسال کد، به صفحه تایید اصلی می‌شود
       router.push("/");
     } catch (error) {

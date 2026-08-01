@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
     const token = validateData.data.token;
-    const res = await api.post("api/auth/token/verify/", { token });
+    const res = await api.post("/api/auth/token/verify/", { token });
     if (res.status !== 200) {
       return response.json(
         {

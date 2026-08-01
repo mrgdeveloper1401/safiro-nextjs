@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const resData = await api.post("api/trip/trips/", validateData.data, {
+    const resData = await api.post("/api/trip/trips/", validateData.data, {
       headers: {
         Authorization: token,
       },

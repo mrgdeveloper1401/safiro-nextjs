@@ -24,7 +24,7 @@ const Register = () => {
     try {
       // روت هندلر خودش کوکی توکن رو httpOnly ست می‌کنه
       const selfReqUrl = isDev ? selfApi : slefHttpsApi;
-      await selfReqUrl.post("api/v1/auth/register", data);
+      await selfReqUrl.post("/api/v1/auth/register", data);
       router.replace("/");
     } catch (error) {
       if (isAxiosError(error)) {

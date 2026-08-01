@@ -1,7 +1,7 @@
 // api/v1/auth/login
 import { api } from "@/lib/axios";
 import { loginSchema } from "@/lib/schema/auth";
-import { V1_PUBlIC_BASE_URL, isDev, response } from "@/utils/config";
+import { isDev, response } from "@/utils/config";
 import { isAxiosError } from "axios";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
@@ -9,9 +9,9 @@ import { NextRequest } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     // request url
-    const reqUrl = isDev
-      ? "http://localhost:8000/v1/api/auth/login_phone_password/"
-      : `${V1_PUBlIC_BASE_URL}/api/auth/login_phone_password/`;
+    // const reqUrl = isDev
+    //   ? "http://localhost:8000/v1/api/auth/login_phone_password/"
+    //   : `${V1_PUBlIC_BASE_URL}/api/auth/login_phone_password/`;
 
     //   check request body
     const body = await request.json();
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const resData = await api.post(reqUrl, validateData.data);
+    const resData = await api.post('/api/auth/login_phone_password/', validateData.data);
 
     // save token in cookie
     const cookieStore = await cookies();
