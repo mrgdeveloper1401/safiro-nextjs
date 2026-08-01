@@ -132,14 +132,14 @@ export const VerifyOtpPhone = () => {
                 </div>
                 <input
                   type="text"
-                  {...register("code")}
+                  {...register("otp")}
                   className="w-full pr-10 pl-3 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-black"
                   placeholder="123456"
                 />
               </div>
-              {errors.code && (
+              {errors.otp && (
                 <p className="text-red-500 text-xs mt-1">
-                  {errors.code.message}
+                  {errors.otp.message}
                 </p>
               )}
             </div>

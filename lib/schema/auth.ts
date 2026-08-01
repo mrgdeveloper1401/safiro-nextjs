@@ -42,7 +42,7 @@ export const verifyForgetPasswordSchema = z
   });
 
 export const VerifyOtpPhoneSchema = z.object({
-  code: z
+  otp: z
     .string()
     .min(1, "کد تایید الزامی هست")
     .max(6, "کد تایید حداکثر ۶ رقمی هست"),
